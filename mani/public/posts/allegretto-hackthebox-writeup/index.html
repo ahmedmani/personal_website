@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<script defer language="javascript" type="text/javascript" src="/js/bundle.min.d451ff92e80abc2a828eb9bb262e4db374bd4e954642f9245c54eec84bf690f3.js"></script>
+
+
+
+
+
+
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="icon" href=/favicon.png>
+
+    
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+
+
+<!-- Open Graph image and Twitter Card metadata -->
+
+<title itemprop="name">Ahmed Mani - Allegretto a HTB Writeup</title>
+<meta property="og:title" content=Ahmed&#32;Mani&#32;-&#32;Allegretto&#32;a&#32;HTB&#32;Writeup />
+<meta name="twitter:title" content=Ahmed&#32;Mani&#32;-&#32;Allegretto&#32;a&#32;HTB&#32;Writeup />
+<meta itemprop="name" content=Ahmed&#32;Mani&#32;-&#32;Allegretto&#32;a&#32;HTB&#32;Writeup />
+<meta name="application-name" content=Ahmed&#32;Mani&#32;-&#32;Allegretto&#32;a&#32;HTB&#32;Writeup />
+<meta property="og:site_name" content="Mani Blue" />
+
+
+<meta name="description" content="" />
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+
+<base href="http://localhost:1313/posts/allegretto-hackthebox-writeup/" />
+<link rel="canonical" href="http://localhost:1313/posts/allegretto-hackthebox-writeup/" itemprop="url" />
+<meta name="url" content="http://localhost:1313/posts/allegretto-hackthebox-writeup/" />
+<meta name="twitter:url" content="http://localhost:1313/posts/allegretto-hackthebox-writeup/" />
+<meta property="og:url" content="http://localhost:1313/posts/allegretto-hackthebox-writeup/" />
+
+
+<meta property="og:updated_time" content="2026-02-08T10:20:11&#43;01:00" />
+
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
+
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />
+
+
+
+<meta property="fb:admins" content="" />
+
+
+<meta name="apple-mobile-web-app-title" content="Mani Blue" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.156.0">
+
+
+    
+    
+
+<link type="text/css" rel="stylesheet" href="/css/bundle.min.49603abe3b120fd297c842ac269b38cc04019325df8e0684cbd8acdf14e201e7.css">
+
+
+    
+    <style>
+    body {
+        --sidebar-bg-color: #202020;
+        --sidebar-img-border-color: #515151;
+        --sidebar-p-color: #909090;
+        --sidebar-h1-color: #FFF;
+        --sidebar-a-color: #FFF;
+        --sidebar-socials-color: #FFF;
+        --text-color: #222;
+        --bkg-color: #FAF9F6;
+        --post-title-color: #303030;
+        --list-color: #5A5A5A;
+        --link-color: #268BD2;
+        --date-color: #515151;
+        --table-border-color: #E5E5E5;
+        --table-stripe-color: #F9F9F9;
+        --code-color: #000;
+        --code-background-color: #E5E5E5;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+        --moon-sun-color: #FFF;
+        --moon-sun-background-color: #515151;
+    }
+    body.dark-theme {
+        --text-color: #EEE;
+        --bkg-color: #121212;
+        --post-title-color: #DBE2E9;
+        --list-color: #9D9D9D;
+        --link-color: #268BD2;
+        --date-color: #9A9A9A;
+        --table-border-color: #515151;
+        --table-stripe-color: #202020;
+        --code-color: #FFF;
+        --code-background-color: #515151;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+    }
+    body {
+        background-color: var(--bkg-color);
+    }
+</style>
+
+</head>
+
+    <body class="dark-theme">
+        <div class="wrapper">
+            <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="light-dark" align="right">
+    <button class="btn-light-dark" title="Toggle light/dark mode">
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M6 .278a.768.768 0 0 1 .08.858a7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277c.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316a.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71C0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+        </svg>
+    </button>
+</div>
+
+        <div class="sidebar-about">
+    <h1 class="brand">
+        
+            <a href="http://localhost:1313/">
+                <img src="https://poison.lukeorth.com/images/brand_image.jpg" alt="brand image">
+            </a>
+        
+        
+            <a href="http://localhost:1313/">
+                <h1>Ahmed Mani</h1>
+            </a>
+        
+    </h1>
+    <p class="lead">
+    Hey my name is Ahmed i write about blueteam exercises and anything i find interesting.
+    </p>
+</div>
+
+        <nav>
+    <ul class="sidebar-nav">
+
+        
+        
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/about/">About Me</a>
+                    </li>
+                    
+                
+            
+                
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/posts/">Posts</a>
+                    </li>
+                    
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+
+    </ul>
+</nav>
+
+        
+    <a target="_blank" class="social" title="GitHub" href="https://github.com/ahmedmani">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-2 -2 24 24">
+            <path fill="currentColor" d="M18.88 1.099C18.147.366 17.265 0 16.233 0H3.746C2.714 0 1.832.366 1.099 1.099C.366 1.832 0 2.714 0 3.746v12.487c0 1.032.366 1.914 1.099 2.647c.733.733 1.615 1.099 2.647 1.099H6.66c.19 0 .333-.007.429-.02a.504.504 0 0 0 .286-.169c.095-.1.143-.245.143-.435l-.007-.885c-.004-.564-.006-1.01-.006-1.34l-.3.052c-.19.035-.43.05-.721.046a5.555 5.555 0 0 1-.904-.091a2.026 2.026 0 0 1-.872-.39a1.651 1.651 0 0 1-.572-.8l-.13-.3a3.25 3.25 0 0 0-.41-.663c-.186-.243-.375-.407-.566-.494l-.09-.065a.956.956 0 0 1-.17-.156a.723.723 0 0 1-.117-.182c-.026-.061-.004-.111.065-.15c.07-.04.195-.059.378-.059l.26.04c.173.034.388.138.643.311a2.1 2.1 0 0 1 .631.677c.2.355.44.626.722.813c.282.186.566.28.852.28c.286 0 .533-.022.742-.065a2.59 2.59 0 0 0 .585-.196c.078-.58.29-1.028.637-1.34a8.907 8.907 0 0 1-1.333-.234a5.314 5.314 0 0 1-1.223-.507a3.5 3.5 0 0 1-1.047-.872c-.277-.347-.505-.802-.683-1.365c-.177-.564-.266-1.215-.266-1.952c0-1.049.342-1.942 1.027-2.68c-.32-.788-.29-1.673.091-2.652c.252-.079.625-.02 1.119.175c.494.195.856.362 1.086.5c.23.14.414.257.553.352a9.233 9.233 0 0 1 2.497-.338c.859 0 1.691.113 2.498.338l.494-.312a6.997 6.997 0 0 1 1.197-.572c.46-.174.81-.221 1.054-.143c.39.98.424 1.864.103 2.653c.685.737 1.028 1.63 1.028 2.68c0 .737-.089 1.39-.267 1.957c-.177.568-.407 1.023-.689 1.366a3.65 3.65 0 0 1-1.053.865c-.42.234-.828.403-1.223.507a8.9 8.9 0 0 1-1.333.235c.45.39.676 1.005.676 1.846v3.11c0 .147.021.266.065.357a.36.36 0 0 0 .208.189c.096.034.18.056.254.064c.074.01.18.013.318.013h2.914c1.032 0 1.914-.366 2.647-1.099c.732-.732 1.099-1.615 1.099-2.647V3.746c0-1.032-.367-1.914-1.1-2.647z"/>
+        </svg>
+    </a>
+
+
+
+    <a target="_blank" class="social" title="LinkedIn" href="https://www.linkedin.com/in/ahmed-mani-b7202a216/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 448 512">
+            <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z"/>
+        </svg>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+    <a target="_blank" class="social" title="Telegram" href="https://t.me/ahmedmani10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19c-.14.75-.42 1-.68 1.03c-.58.05-1.02-.38-1.58-.75c-.88-.58-1.38-.94-2.23-1.5c-.99-.65-.35-1.01.22-1.59c.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02c-.09.02-1.49.95-4.22 2.79c-.4.27-.76.41-1.08.4c-.36-.01-1.04-.2-1.55-.37c-.63-.2-1.12-.31-1.08-.66c.02-.18.27-.36.74-.55c2.92-1.27 4.86-2.11 5.83-2.51c2.78-1.16 3.35-1.36 3.73-1.36c.08 0 .27.02.39.12c.1.08.13.19.14.27c-.01.06.01.24 0 .38z"/>
+        </svg>
+    </a>
+
+
+
+
+
+    <a target="_blank" class="social" title="Email" href="mailto://ahmedmani@hotmail.com">
+       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 485.211 485.211">
+            <path fill="currentColor" d="M301.393,241.631L464.866,424.56H20.332l163.474-182.928l58.801,51.443L301.393,241.631z M462.174,60.651H23.027 l219.579,192.142L462.174,60.651z M324.225,221.67l160.986,180.151V80.792L324.225,221.67z M0,80.792v321.029L160.972,221.64 L0,80.792z"/>
+       </svg>
+    </a>
+
+
+
+
+        <p class="footnote">
+    &copy; 2026 Mani Blue. All rights reserved.
+</p>
+
+  </div>
+</aside>
+
+            <main class="content container">
+                <div class="post">
+  <div class="info">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/posts/allegretto-hackthebox-writeup/">Allegretto a HTB Writeup</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      
+      <time datetime=" 2026-02-08T10:20:11&#43;0100" class="post-date">
+        February 8, 2026
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>5 mins read</span>
+      </span>
+    </div>
+
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+  <p>This writeup documents my analysis and investigation of the <a href="https://app.hackthebox.com/sherlocks/Allegretto" target="_blank">Allegretto</a> sherlock on Hackthebox. This sherlock focuses heavily on filesystem forensics, email artifacts, browser data, and document metadata. Let’s get into it…</p>
+<blockquote>
+<p><em>Which version of QGIS is being used by Shadow?</em></p>
+</blockquote>
+<p>To identify installed applications, the Master file table ($MFT) was parsed using MFTECmd:</p>
+<pre tabindex="0"><code>MFTECmd.exe -f ...\Allegretto\Target\C\$MFT --csv .
+</code></pre><p>Searching the output CSV for QGIS revealed the following entry:</p>
+<pre tabindex="0"><code>589,5,True,334831,1,.\Program Files\QGIS 3.34.11\apps\Python312\lib\site-packages\pythonwin,pywin,,0,1,,True,False,False,False,False,False,None,DosWindows,2024-09-22 13:24:55.8409674,,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-23 14:11:23.0563790,2024-09-22 13:24:55.8409674,462563232,1179096294,269,,,,
+</code></pre><p>This confirms that QGIS version <em>3.34.11</em> was installed on the system.</p>
+<blockquote>
+<p><em>What is Shadow’s Darkmail email address?</em></p>
+</blockquote>
+<p>While examining the $MFT for email-related artifacts, several entries pointed to:</p>
+<pre tabindex="0"><code>\Users\shadow\AppData\Roaming\Thunderbird\
+</code></pre><p>“<a href="https://www.thunderbird.net/" target="_blank">Thunderbird</a> is a free, open-source, and privacy-focused desktop email client, personal information manager, and news client developed.”</p>
+<p>Seemd like the perfect place to start searching. Navigating to this directory, i found an <code>INBOX</code> file which contained shadow’s emails.</p>
+<p>As it turns out by default Thunderbird stores emails locally without encryption (not a good idea). Eitherway inspecting the <code>INBOX</code> file revealed the following email headers:</p>
+<pre tabindex="0"><code>From
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: [marcus@darkmail.htb](mailto:marcus@darkmail.htb)
+X-Original-To: shadow152535@darkmail.htb
+Delivered-To: shadow152535@darkmail.htb
+Received: by mail.caymine.htb (Postfix, from userid 1003)
+id 124B31790; Sun, 22 Sep 2024 12:54:03 +0000 (UTC)
+Subject: Re: Got a new laptop
+To: [shadow152535@darkmail.htb](mailto:shadow152535@darkmail.htb)
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Sun, 22 Sep 2024 12:54:03 +0000
+Message-Id: [20240922125403.124B31790@mail.darkmail.htb](mailto:20240922125403.124B31790@mail.darkmail.htb)
+From: marcus@darkmail.htb
+What on earth were you up to? what would have happened if you got caught? did someone follow you? boss not gonna like this shadow YOU NEED TO BE CAREFUL.
+</code></pre><p>This confirms Shadow’s Darkmail address is <em><a href="mailto:shadow152535@darkmail.htb">shadow152535@darkmail.htb</a></em></p>
+<blockquote>
+<p><em>What is Shadow’s Bitcoin address?</em></p>
+</blockquote>
+<p>Snooping on some of shadow’s emails i found this email:</p>
+<pre tabindex="0"><code>Message-ID: [8188fc07-72dc-445f-9e41-3b599f8c7155@darkmail.htb](mailto:8188fc07-72dc-445f-9e41-3b599f8c7155@darkmail.htb)
+Date: Sun, 22 Sep 2024 19:25:58 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: mark.chan@darkmail.htb
+From: Shadow [shadow152535@darkmail.htb](mailto:shadow152535@darkmail.htb)
+Subject: Payment Request for Last Shipment
+This is a multi-part message in MIME format.
+--------------BFUh00zEz698IWw0v7GdSUpN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Hey, I trust the last delivery met your expectations. It&#39;s time to settle up.
+Total: £860.83
+BTC Address: 39tjYdCgsmko1uqW1uiE7sKEZZxhHo2UmK
+Make sure the transaction is completed within 48 hours.
+Once the funds are confirmed, I’ll send the next batch info.
+Let me know if you have any issues on your end. Usual rules apply—no
+delays, no exceptions.
+Stay safe.
+</code></pre><p>Giving us the answer <em>39tjYdCgsmko1uqW1uiE7sKEZZxhHo2UmK</em></p>
+<blockquote>
+<p><em>What is the onion URL for the Silk Road where Shadow sells drugs?</em></p>
+</blockquote>
+<p>Inside the $MFT file i noticed some browser related files pointing to</p>
+<pre tabindex="0"><code>Allegretto\Important collections\Tor Browser\Browser\TorBrowser\Data\Browser\profile.default
+</code></pre><p>Within this directory, I found a <code>places.sqlite</code> database file. This is a Firefox internal database that stores a user’s browsing history and bookmarks. Since Tor Browser is firefox based, it uses the exact same structure.</p>
+<p>After loading the file in DB viewer. I examined the <code>moz_places</code> table which contains browsing history. The following onion url was identified:</p>
+<p><em>silkroadm5oqzuz3yq7pvwvinvyzeg2wnpnw3t4cyrsggrcgqfy2ptid.onion</em></p>
+<p><img src="/images/htb-allegretto-sc1.png" alt="Alt text"></p>
+<blockquote>
+<p><em>Based on the cookie’s last access, when was the last visit to the Silk Road onion site?</em></p>
+</blockquote>
+<p>In the same Tor profile directory, the <code>cookies.sqlite</code> database was examined. Searching the <code>moz_cookies</code> table for the Silk Road onion domain revealed a <code>lastAccessed</code> timestamp.</p>
+<p><img src="/images/htb-allegretto-sc2.png" alt="Alt text"></p>
+<p>After converting the timestamp to UTC, the last visit occurred at <em>2024–09–22 18:33:40</em></p>
+<blockquote>
+<p><em>What is Shadow’s Hotmail email address?</em></p>
+</blockquote>
+<p>Shadow’s NTUSER.DAT registry hive was loaded into Registry Explorer. Searching for <code>@hotmail</code> revealed the following email address <a href="mailto:shadow152535@hotmail.com"><em>shadow152535@hotmail.com</em></a></p>
+<p><img src="/images/htb-allegretto-sc3.png" alt="Alt text"></p>
+<blockquote>
+<p><em>When was Shadow supposed to meet his mysterious boss?</em></p>
+</blockquote>
+<p>When inspecting the Thunderbird directory from earlier questions i noticed the following directory.</p>
+<p><img src="/images/htb-allegretto-sc4.png" alt="Alt text"></p>
+<p>Inside i discovered a db file called <code>local.sqlite</code>. Inspecting it in DB Viewer revealed a calendar event entry labeled “Meet the boss”.</p>
+<p><img src="/images/htb-allegretto-sc5.png" alt="Alt text"></p>
+<p>Decoding the event’s <code>dtstart</code> timestamp resulted in <em>2024–12–21 21:00:00</em></p>
+<blockquote>
+<p><em>When was the “Contacts Due Amounts” spreadsheet created?</em></p>
+</blockquote>
+<p>An email in the Thunderbird <code>INBOX</code> file contained a base64 encoded xlsx attachment.</p>
+<p><img src="/images/htb-allegretto-sc6.png" alt="Alt text"></p>
+<p>I first copied the base64 data into a file, then decoded it using</p>
+<p><code>base64 -d file.b64 &gt; file.xlsx</code></p>
+<p>Inspecting the creation dates through <code>ls -l</code>or other tools will only reflect the decode time instead of the original creation time.</p>
+<p>As it turns out <code>.xlsx</code> files are ZIP archives, and can be simply extracted by renaming the file to <code>.zip</code></p>
+<p>By unzipping it and inspecting the<code>/docProps/core.xml</code> file i found the original creation timestamp <em>2024–09–22 15:44:22</em></p>
+<p><img src="/images/htb-allegretto-sc7.png" alt="Alt text"></p>
+<blockquote>
+<p><em>Which file did Shadow delete from the encrypted USB drive?</em></p>
+</blockquote>
+<p>I spent so much time inspecting different logs, registry hives etc.. to no avail as the answer is not even on the host os.</p>
+<p>The shadow.E01 file included in the resources, is a bit by bit copy of a storage device. I first tried to open it in Autopsy but it quickly identified it as encrypted with bitlocker.</p>
+<p>While exploring shadow’s documents i stumbeled upon a bitlocker recovery password, and through the advanced skill of blindly copying and executing code from chatgpt i managed to mount the image and decrypt it.</p>
+<p><img src="/images/htb-allegretto-sc8.png" alt="Alt text"></p>
+<p>While investigating the recycle bin, i stumbled across these <code>.kml</code>files. “KML (Keyhole Markup Language) files are XML-based files used to display geographic data, such as points, lines, polygons, and 3D models, on 2D maps and 3D Earth browsers like Google Earth”</p>
+<p>By inspecting one of these files i found the answer <em>E:\Locations\Item_Dropoff tracking.kml</em></p>
+<p><img src="/images/htb-allegretto-sc9.png" alt="Alt text"></p>
+<blockquote>
+<p><em>What are Stash Roman’s coordinates?</em></p>
+</blockquote>
+<p>Inspecting the second <code>.kml</code> file revealed geographic coordinate data associated with Roman’s stash.</p>
+<p><img src="/images/htb-allegretto-sc10.png" alt="Alt text"></p>
+<p><img src="/images/htb-allegretto-sc11.png" alt="Alt text"></p>
+<p>Extracting the coodinates and converting them into the required format (which took a lot of time to figure out) we get <em>53°57'42&quot;N 1°04'54&quot;W</em></p>
+<p>By submitting that flag we finish the sherlock</p>
+<p><img src="/images/htb-allegretto-sc12.png" alt="Alt text"></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This was a fun challenge, i learned a lot, looking forward to play more HTB sherlocks, as usual stay safe.</p>
+
+  
+  <hr>
+<div class="footer">
+    
+	    
+            <a class="previous-post" href="http://localhost:1313/posts/suspicious-python-package/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Suspicious Python Package LetsDefend Writeup</a>
+        
+	    
+    
+</div>
+
+  
+</div>
+            </main>
+            
+  
+    <div class="article-toc ">
+    <div class="toc-wrapper">
+      <h4 id="contents"></h4>
+      <nav id="TableOfContents"></nav>
+    </div>
+</div>
+
+  
+
+        </div>
+    </body>
+</html>

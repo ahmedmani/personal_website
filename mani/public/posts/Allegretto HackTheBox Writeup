@@ -1,0 +1,206 @@
+This writeup documents my analysis and investigation of the [**Allegretto**](https://app.hackthebox.com/sherlocks/Allegretto) sherlock on Hackthebox. This sherlock focuses heavily on filesystem forensics, email artifacts, browser data, and document metadata. Let’s get into it…
+
+> *Which version of QGIS is being used by Shadow?*
+> 
+
+To identify installed applications, the Master file table ($MFT) was parsed using MFTECmd:
+
+```
+MFTECmd.exe -f ...\Allegretto\Target\C\$MFT --csv .
+```
+
+Searching the output CSV for QGIS revealed the following entry:
+
+```
+589,5,True,334831,1,.\Program Files\QGIS 3.34.11\apps\Python312\lib\site-packages\pythonwin,pywin,,0,1,,True,False,False,False,False,False,None,DosWindows,2024-09-22 13:24:55.8409674,,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-23 14:11:23.0563790,2024-09-22 13:24:55.8409674,462563232,1179096294,269,,,,
+```
+
+This confirms that QGIS version ***3.34.11*** was installed on the system.
+
+> *What is Shadow’s Darkmail email address?*
+> 
+
+While examining the $MFT for email-related artifacts, several entries pointed to:
+
+```
+\Users\shadow\AppData\Roaming\Thunderbird\
+```
+
+“[Thunderbird](https://www.thunderbird.net/) is a free, open-source, and privacy-focused desktop email client, personal information manager, and news client developed.”
+
+Seemd like the perfect place to start searching. Navigating to this directory, i found an `INBOX` file which contained shadow’s emails.
+
+As it turns out by default Thunderbird stores emails locally without encryption (not a good idea). Eitherway inspecting the `INBOX` file revealed the following email headers:
+
+```
+From
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: [marcus@darkmail.htb](mailto:marcus@darkmail.htb)
+X-Original-To: shadow152535@darkmail.htb
+Delivered-To: shadow152535@darkmail.htb
+Received: by mail.caymine.htb (Postfix, from userid 1003)
+id 124B31790; Sun, 22 Sep 2024 12:54:03 +0000 (UTC)
+Subject: Re: Got a new laptop
+To: [shadow152535@darkmail.htb](mailto:shadow152535@darkmail.htb)
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Sun, 22 Sep 2024 12:54:03 +0000
+Message-Id: [20240922125403.124B31790@mail.darkmail.htb](mailto:20240922125403.124B31790@mail.darkmail.htb)
+From: marcus@darkmail.htb
+What on earth were you up to? what would have happened if you got caught? did someone follow you? boss not gonna like this shadow YOU NEED TO BE CAREFUL.
+```
+
+This confirms Shadow’s Darkmail address is ***shadow152535@darkmail.htb***
+
+> *What is Shadow’s Bitcoin address?*
+> 
+
+Snooping on some of shadow’s emails i found this email:
+
+```
+Message-ID: [8188fc07-72dc-445f-9e41-3b599f8c7155@darkmail.htb](mailto:8188fc07-72dc-445f-9e41-3b599f8c7155@darkmail.htb)
+Date: Sun, 22 Sep 2024 19:25:58 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: mark.chan@darkmail.htb
+From: Shadow [shadow152535@darkmail.htb](mailto:shadow152535@darkmail.htb)
+Subject: Payment Request for Last Shipment
+This is a multi-part message in MIME format.
+--------------BFUh00zEz698IWw0v7GdSUpN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Hey, I trust the last delivery met your expectations. It's time to settle up.
+Total: £860.83
+BTC Address: 39tjYdCgsmko1uqW1uiE7sKEZZxhHo2UmK
+Make sure the transaction is completed within 48 hours.
+Once the funds are confirmed, I’ll send the next batch info.
+Let me know if you have any issues on your end. Usual rules apply—no
+delays, no exceptions.
+Stay safe.
+```
+
+Giving us the answer ***39tjYdCgsmko1uqW1uiE7sKEZZxhHo2UmK***
+
+> *What is the onion URL for the Silk Road where Shadow sells drugs?*
+> 
+
+Inside the $MFT file i noticed some browser related files pointing to
+
+```
+Allegretto\Important collections\Tor Browser\Browser\TorBrowser\Data\Browser\profile.default
+```
+
+Within this directory, I found a `places.sqlite` database file. This is a Firefox internal database that stores a user’s browsing history and bookmarks. Since Tor Browser is firefox based, it uses the exact same structure.
+
+After loading the file in DB viewer. I examined the `moz_places` table which contains browsing history. The following onion url was identified:
+
+***silkroadm5oqzuz3yq7pvwvinvyzeg2wnpnw3t4cyrsggrcgqfy2ptid.onion***
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*0VLwztiEHPWGwQi5aa8Qug.png)
+
+> *Based on the cookie’s last access, when was the last visit to the Silk Road onion site?*
+> 
+
+In the same Tor profile directory, the `cookies.sqlite` database was examined. Searching the `moz_cookies` table for the Silk Road onion domain revealed a `lastAccessed` timestamp.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*ff9rHSrWiKfUNU2SzgSOwg.png)
+
+After converting the timestamp to UTC, the last visit occurred at ***2024–09–22 18:33:40***
+
+> *What is Shadow’s Hotmail email address?*
+> 
+
+Shadow’s **NTUSER.DAT** registry hive was loaded into **Registry Explorer**. Searching for `@hotmail` revealed the following email address [***shadow152535@hotmail.com***](mailto:shadow152535@hotmail.com)
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*VMrQrUW1W3ZEqhdutIbYAw.png)
+
+> *When was Shadow supposed to meet his mysterious boss?*
+> 
+
+When inspecting the Thunderbird directory from earlier questions i noticed the following directory.
+
+![](https://miro.medium.com/v2/resize:fit:643/1*Y6N9oI_vPeCaC0r-4PzWkg.png)
+
+Inside i discovered a db file called `local.sqlite`. Inspecting it in DB Viewer revealed a calendar event entry labeled “Meet the boss”.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*J0nbnhMXNWDG1NQwRHQ4ZA.png)
+
+Decoding the event’s `dtstart` timestamp resulted in ***2024–12–21 21:00:00***
+
+> *When was the “Contacts Due Amounts” spreadsheet created?*
+> 
+
+An email in the Thunderbird `INBOX` file contained a base64 encoded xlsx attachment.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*BO0rJaGjFMnOkB6DNjDk5Q.png)
+
+I first copied the base64 data into a file, then decoded it using
+
+`base64 -d file.b64 > file.xlsx`
+
+Inspecting the creation dates through `ls -l`or other tools will only reflect the decode time instead of the original creation time.
+
+As it turns out `.xlsx` files are ZIP archives, and can be simply extracted by renaming the file to `.zip`
+
+By unzipping it and inspecting the`/docProps/core.xml` file i found the original creation timestamp ***2024–09–22 15:44:22***
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*bq6H49QNDZzkMZlY4f7Cyg.png)
+
+> *Which file did Shadow delete from the encrypted USB drive?*
+> 
+
+I spent so much time inspecting different logs, registry hives etc.. to no avail as the answer is not even on the host os.
+
+The shadow.E01 file included in the resources, is a bit by bit copy of a storage device. I first tried to open it in Autopsy but it quickly identified it as encrypted with bitlocker.
+
+While exploring shadow’s documents i stumbeled upon a bitlocker recovery password, and through the advanced skill of blindly copying and executing code from chatgpt i managed to mount the image and decrypt it.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*CZKr62Dqbkhtt7WqwYC0FA.png)
+
+While investigating the recycle bin, i stumbled across these `.kml`files. “KML (Keyhole Markup Language) files are XML-based files used to display geographic data, such as points, lines, polygons, and 3D models, on 2D maps and 3D Earth browsers like Google Earth”
+
+By inspecting one of these files i found the answer ***E:\Locations\Item_Dropoff tracking.kml***
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*E_Pk4xQoWD1ZVnBdJ7UfSA.png)
+
+> *What are Stash Roman’s coordinates?*
+> 
+
+Inspecting the second `.kml` file revealed geographic coordinate data associated with Roman’s stash.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*6TtWGl7iJcD2VByeVAUOVw.png)
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*PQHChg4KKoRz2YUf4C0VtA.png)
+
+Extracting the coodinates and converting them into the required format (which took a lot of time to figure out) we get ***53°57'42"N 1°04'54"W***
+
+By submitting that flag we finish the sherlock
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*1KOVt-eoM0JfHBbWfXVNkA.png)
+
+# **Conclusion**
+
+This was a fun challenge, i learned a lot, looking forward to play more HTB sherlocks, as usual stay safe.

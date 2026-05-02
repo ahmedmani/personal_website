@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Mani Blue</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Mani Blue</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Feb 2026 10:20:11 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Allegretto a HTB Writeup</title>
+      <link>http://localhost:1313/posts/allegretto-hackthebox-writeup/</link>
+      <pubDate>Sun, 08 Feb 2026 10:20:11 +0100</pubDate>
+      <guid>http://localhost:1313/posts/allegretto-hackthebox-writeup/</guid>
+      <description>&lt;p&gt;This writeup documents my analysis and investigation of the &lt;a href=&#34;https://app.hackthebox.com/sherlocks/Allegretto&#34; target=&#34;_blank&#34;&gt;Allegretto&lt;/a&gt; sherlock on Hackthebox. This sherlock focuses heavily on filesystem forensics, email artifacts, browser data, and document metadata. Let’s get into it…&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;Which version of QGIS is being used by Shadow?&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;To identify installed applications, the Master file table ($MFT) was parsed using MFTECmd:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;MFTECmd.exe -f ...\Allegretto\Target\C\$MFT --csv .&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Searching the output CSV for QGIS revealed the following entry:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;589,5,True,334831,1,.\Program Files\QGIS 3.34.11\apps\Python312\lib\site-packages\pythonwin,pywin,,0,1,,True,False,False,False,False,False,None,DosWindows,2024-09-22 13:24:55.8409674,,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-22 13:24:55.9500667,2024-09-22 13:24:55.8409674,2024-09-23 14:11:23.0563790,2024-09-22 13:24:55.8409674,462563232,1179096294,269,,,,&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This confirms that QGIS version &lt;em&gt;3.34.11&lt;/em&gt; was installed on the system.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Suspicious Python Package LetsDefend Writeup</title>
+      <link>http://localhost:1313/posts/suspicious-python-package/</link>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/suspicious-python-package/</guid>
+      <description>&lt;p&gt;This writeup documents my analysis and investigation of the &lt;a href=&#34;https://app.letsdefend.io/challenge/suspicious-python-package&#34; target=&#34;_blank&#34;&gt;Suspicious Python Package&lt;/a&gt; challenge on LetsDefend. As you can guess the objective was to investigate a malicious python package. Let’s get into it…&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;The attacker downloaded a malicious package. What is the full URL?&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;First i assumed the package was downloaded using Chrome instead of Pip. So i looked into the chrome History SQLite db file. Which is located at *“C\Users\Administrator\AppData\Local\Google\Chrome\User Data\Default\History”*This file holds various information regarding downloads made on chrome.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Wordpress Web Forensics LetsDefend Writeup</title>
+      <link>http://localhost:1313/posts/wordpress-web-forensics/</link>
+      <pubDate>Sat, 24 Jan 2026 00:22:11 +0100</pubDate>
+      <guid>http://localhost:1313/posts/wordpress-web-forensics/</guid>
+      <description>&lt;p&gt;This writeup documents my analysis and investigation of the &lt;a href=&#34;https://app.letsdefend.io/challenge/wordpress-web-forensics&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;WordPress Web Forensics&lt;/strong&gt;&lt;/a&gt; challenge on LetsDefend. The objective was to investigate a wordpress server breach using the web server logs and Splunk.&lt;/p&gt;&#xA;&lt;p&gt;After setting up the provided log source let’s dive in..&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;What is the attacker’s IP address from which the WPScan enumeration originated?&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;“WPScan WordPress security scanner. Written for security professionals and blog maintainers to test the security of their WordPress websites”&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Spymax Telegram Rat LetsDefend Writeup</title>
+      <link>http://localhost:1313/posts/spymax-telegram-rat/</link>
+      <pubDate>Fri, 23 Jan 2026 02:22:11 +0100</pubDate>
+      <guid>http://localhost:1313/posts/spymax-telegram-rat/</guid>
+      <description>&lt;p&gt;This write‑up documents how I approached and solved the &lt;strong&gt;SpyMax Telegram RAT&lt;/strong&gt; challenge on LetsDefend.&lt;/p&gt;&#xA;&lt;p&gt;The scenario involves a victim who attempted to download the Telegram app on their Android device. Instead of using the official Google Play Store, the victim accessed a suspicious website advertising a “faster” download. The victim installed a malicious APK disguised as Telegram, resulting in a potential device compromise. The objective of this investigation was to analyze the APK and uncover key details about the attack.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
