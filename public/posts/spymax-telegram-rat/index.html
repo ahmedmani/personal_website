@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><script src="/personal_website/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=personal_website/livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     
 
 
@@ -20,7 +20,7 @@
 
 
 
-<script defer language="javascript" type="text/javascript" src="/personal_website/js/bundle.min.d451ff92e80abc2a828eb9bb262e4db374bd4e954642f9245c54eec84bf690f3.js"></script>
+<script defer language="javascript" type="text/javascript" src="/js/bundle.min.d451ff92e80abc2a828eb9bb262e4db374bd4e954642f9245c54eec84bf690f3.js"></script>
 
 
 
@@ -70,17 +70,17 @@
 <meta name="twitter:description" content="" />
 
 
-<base href="http://localhost:1313/personal_website/posts/spymax-telegram-rat/" />
-<link rel="canonical" href="http://localhost:1313/personal_website/posts/spymax-telegram-rat/" itemprop="url" />
-<meta name="url" content="http://localhost:1313/personal_website/posts/spymax-telegram-rat/" />
-<meta name="twitter:url" content="http://localhost:1313/personal_website/posts/spymax-telegram-rat/" />
-<meta property="og:url" content="http://localhost:1313/personal_website/posts/spymax-telegram-rat/" />
+<base href="http://localhost:1313/posts/spymax-telegram-rat/" />
+<link rel="canonical" href="http://localhost:1313/posts/spymax-telegram-rat/" itemprop="url" />
+<meta name="url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
+<meta name="twitter:url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
+<meta property="og:url" content="http://localhost:1313/posts/spymax-telegram-rat/" />
 
 
 <meta property="og:updated_time" content="2026-01-23T02:22:11&#43;01:00" />
 
 
-<link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/personal_website/sitemap.xml' />
+<link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
 
 <meta name="robots" content="index,follow" />
 <meta name="googlebot" content="index,follow" />
@@ -105,7 +105,7 @@
     
     
 
-<link type="text/css" rel="stylesheet" href="/personal_website/css/bundle.min.49603abe3b120fd297c842ac269b38cc04019325df8e0684cbd8acdf14e201e7.css">
+<link type="text/css" rel="stylesheet" href="/css/bundle.min.49603abe3b120fd297c842ac269b38cc04019325df8e0684cbd8acdf14e201e7.css">
 
 
     
@@ -171,12 +171,12 @@
         <div class="sidebar-about">
     <h1 class="brand">
         
-            <a href="http://localhost:1313/personal_website/">
+            <a href="http://localhost:1313/">
                 <img src="https://poison.lukeorth.com/images/brand_image.jpg" alt="brand image">
             </a>
         
         
-            <a href="http://localhost:1313/personal_website/">
+            <a href="http://localhost:1313/">
                 <h1>Ahmed Mani</h1>
             </a>
         
@@ -304,7 +304,7 @@
                 <div class="post">
   <div class="info">
   <h1 class="post-title">
-    <a href="http://localhost:1313/personal_website/posts/spymax-telegram-rat/">Spymax Telegram Rat LetsDefend Writeup</a>
+    <a href="http://localhost:1313/posts/spymax-telegram-rat/">Spymax Telegram Rat LetsDefend Writeup</a>
   </h1>
 
   <div class="headline">
@@ -321,7 +321,7 @@
           
         
 
-        <span>5 mins read</span>
+        <span>4 mins read</span>
       </span>
     </div>
 
@@ -342,10 +342,8 @@
 <blockquote>
 <p><em><strong>What is the SHA-1 hash of the malicious APK file?</strong></em></p>
 </blockquote>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc1.png" alt="Alt text"></p>
 <p>By opening the AD1 image in FTK Imager and navigating to the Downloads directory, the malicious APK can be identified. After exporting the APK and calculating its hash using a simple PowerShell command, the SHA‑1 hash is: <em><strong>a192df3e1ee4f74d4078180a465ebc157bbd886b</strong></em></p>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc2.png" alt="Alt text"></p>
 <blockquote>
 <p><em><strong>What type of attack did the victim fall for?</strong></em></p>
@@ -360,7 +358,6 @@
 </blockquote>
 <p>is an SQLite database that stores metadata about downloaded files.</p>
 <p>I exported this database using FTK Imager and opened it with DB Browser for SQLite. Among the various tables, the <strong>downloads</strong> table contains a <code>uri</code> column, which records the download source. The malicious domain identified in this column is: <em><strong>piay.google.com</strong></em></p>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc3.png" alt="Alt text"></p>
 <blockquote>
 <p><em>What is the IP address and port of the Command and Control (C2) server used by the malicious app?</em></p>
@@ -371,10 +368,8 @@
 <pre tabindex="0"><code>vhnvitlsjqhpnpdnttkkdpfhpbikoymknsrbkhwtaggb4244.ad = InetAddress.getByName(split[i]
 </code></pre><p>This method resolves a hostname to an IP address.</p>
 <p>Further analysis showed that the hostname and port were being parsed from values loaded at runtime. Tracing the variable assignments revealed that these values originate from the <code>strings.xml</code> resource file.</p>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc4.png" alt="Alt text"></p>
 <p>Inspecting <code>strings.xml</code> revealed the C2 server information: <em><strong>192.168.245.130:7771</strong></em></p>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc5.png" alt="Alt text"></p>
 <blockquote>
 <p><em>What is the name of the function responsible for compressing data in the malicious APK?</em></p>
@@ -430,7 +425,6 @@
 </blockquote>
 <p>holds various informations related to Calls, Phone numbers etc.</p>
 <p>After opening this database in DB Browser for SQLite and inspecting the <strong>calls</strong> table, I found a single dialed number: <em><strong>09436521458754</strong></em></p>
-<p>Press enter or click to view image in full size</p>
 <p><img src="/images/str-sc6.png" alt="Alt text"></p>
 <blockquote>
 <p><em>What is the decryption key that was left by the attacker?</em></p>
@@ -461,7 +455,7 @@
 	    
 	    
             <div class="next-post">
-                <a href="http://localhost:1313/personal_website/posts/wordpress-web-forensics/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Wordpress Web Forensics LetsDefend Writeup</a>
+                <a href="http://localhost:1313/posts/wordpress-web-forensics/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Wordpress Web Forensics LetsDefend Writeup</a>
             </div>
         
     

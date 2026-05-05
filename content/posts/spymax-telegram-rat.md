@@ -16,13 +16,13 @@ We are provided with an AD1 image, which stands for AccessData Logical Image. Th
 > ***What is the SHA-1 hash of the malicious APK file?***
 > 
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc1.png)
 
 By opening the AD1 image in FTK Imager and navigating to the Downloads directory, the malicious APK can be identified. After exporting the APK and calculating its hash using a simple PowerShell command, the SHA‑1 hash is: ***a192df3e1ee4f74d4078180a465ebc157bbd886b***
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc2.png)
 
@@ -44,7 +44,7 @@ is an SQLite database that stores metadata about downloaded files.
 
 I exported this database using FTK Imager and opened it with DB Browser for SQLite. Among the various tables, the **downloads** table contains a `uri` column, which records the download source. The malicious domain identified in this column is: ***piay.google.com***
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc3.png)
 
@@ -66,14 +66,14 @@ This method resolves a hostname to an IP address.
 
 Further analysis showed that the hostname and port were being parsed from values loaded at runtime. Tracing the variable assignments revealed that these values originate from the `strings.xml` resource file.
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc4.png)
 
 
 Inspecting `strings.xml` revealed the C2 server information: ***192.168.245.130:7771***
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc5.png)
 
@@ -149,7 +149,7 @@ holds various informations related to Calls, Phone numbers etc.
 
 After opening this database in DB Browser for SQLite and inspecting the **calls** table, I found a single dialed number: ***09436521458754***
 
-Press enter or click to view image in full size
+
 
 ![Alt text](/images/str-sc6.png)
 
